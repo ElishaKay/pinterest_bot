@@ -1,4 +1,6 @@
 body {
+  overflow-y: auto;
+  overflow-x: auto;
   width: 800px;
   height: 600px;
   position: relative;
