@@ -13,13 +13,18 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '../views/home.html',
             controller: 'PopupCtrl'
         })
-                
+        
+        .state('home.insert-code', {
+            url: '/insert-code',
+            templateUrl: '../views/insert-code.html'
+        })
+
         .state('home.run-campaign', {
             url: '/run-campaign',
             templateUrl: '../views/run-campaign.html'
         });
        
-    $urlRouterProvider.otherwise('/home/run-campaign');
+    $urlRouterProvider.otherwise('/home/insert-code');
 })
 
 
@@ -29,10 +34,12 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
 
     // we will store all of our form data in this object
     $scope.formData = {};
+    $scope.client_analytics_code = '';
 
     $scope.getClientData = function(formData) {
+        $scope.client_analytics_code = formData.client_analytics_code;
         // get creds of client's pinterest users
-        $http.get('http://localhost:5000/getcreds/'+formData.client_analytics_code)
+        $http.get('http://localhost:5000/getcreds/'+$scope.client_analytics_code)
              .then(function (response) {
                 console.log(response.data);
                 if (response.data){
@@ -43,7 +50,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
         }); 
     
         // get client's existing campaign search_terms
-        $http.get('http://localhost:5000/getcampaigns/'+formData.client.client_analytics_code)
+        $http.get('http://localhost:5000/getcampaigns/'+$scope.client_analytics_code)
              .then(function (response) {
                 console.log(response.data);
                 if (response.data){
