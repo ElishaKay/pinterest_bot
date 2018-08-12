@@ -11,8 +11,6 @@ function wordSelected() {
   }
 }
 
-var text = "hello";
-
 chrome.runtime.onMessage.addListener(
     function(message, sender, sendResponse) {
         switch(message.type) {
@@ -43,3 +41,14 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+
+// if the user is logged in
+
+let loggedIn = 
+
+if(locastorage.getItem(loggedIn) && window.location.href.includes("world")) {
+
+let images = document.querySelectorAll('.gridCentered img');
+
+}
