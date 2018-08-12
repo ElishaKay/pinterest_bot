@@ -1,3 +1,10 @@
+body {
+  width: 800px;
+  height: 600px;
+  position: relative;
+  vertical-align:middle;
+}
+
 .outer-container {
   width: 420px;
   text-align: center;
