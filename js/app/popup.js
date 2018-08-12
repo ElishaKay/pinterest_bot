@@ -36,7 +36,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     $scope.client_analytics_code = '';
     $scope.selectedObj = {};
     //change before deploying
-    $scope.baseUrl = 'http://localhost:5000';
+    $scope.baseUrl = 'https://ampituptime.herokuapp.com';
 
     $scope.getClientData = function(formData) {
         $scope.client_analytics_code = formData.client_analytics_code;
