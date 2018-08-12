@@ -1,13 +1,26 @@
 <h3>Step 1: Choose Campaign</h3>
 
   <div ng-if="campaigns" class="form-group">
-      <div class="radio" ng-repeat="campaign in campaigns">
+    <table>
+      <div ng-repeat="campaign in campaigns">
           <label>
-             <input type="radio" ng-model="chosenCampaign" value="campaign.search_term" checked>
+             <input type="radio" ng-model="$parent.selectedObj" ng-value="campaign">
              {{campaign.search_term}}
           </label>
       </div>
-  </div>
+
+      <tr ng-repeat="c in campaigns">
+      <!-- $parent.selectedObj -->
+          <td>
+            <label> {{$index}}
+             <input type="radio" ng-model="$parent.selectedObj" ng-value="c">
+        </label>
+      </td>
+    </tr>
+  </table>
+
+<h1>Results:</h1>
+   <span>Selected object: {{selectedObj.search_term}}</span>
 
   <div ng-if="!campaigns">
         <div class="row">
@@ -39,7 +52,7 @@
       <tr ng-repeat="user in users">
         <td>{{ user.user_email }}</a></td>
         <td>{{ user.user_password }}</a></td>
-        <td class="btn btn-block btn-info" ng-click="startScraping(user)">Start Scraping</td>
+        <td class="btn btn-block btn-info" ng-click="startScraping(user, selectedObj.search_term)">Start Scraping</td>
         
       </tr>
      </tbody>

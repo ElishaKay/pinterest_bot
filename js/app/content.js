@@ -7,6 +7,7 @@ chrome.runtime.onMessage.addListener(
                 sendResponse(text);
             case "userCreds":
             	console.log('these are the user creds',message.creds);
+              console.log('this is the search_term',message.campaign);
               // Logging In
               let inputEmail = document.querySelector('input#email');
               let inputPassword = document.querySelector('#password');
@@ -24,8 +25,15 @@ chrome.runtime.onMessage.addListener(
 
               inputEmail.value = message.creds.user_email;
               inputPassword.value = message.creds.user_password;
+              
+              wait(500);
+
+              localStorage.setItem('loggedIn', true);
+              localStorage.setItem('search_term', message.campaign);
+
               login.click()
-              sendResponse(text);
+              
+              // sendResponse(text);
             break;
         }
     }
@@ -33,8 +41,12 @@ chrome.runtime.onMessage.addListener(
 
 
 // if the user is logged in
+if(window.location.href === "https://www.pinterest.com") {
+  let search_term = localStorage.getItem('search_term');
+  window.location.href = 'https://www.pinterest.com/search/pins/?q='+search_term;
+}
 
-// let loggedIn = 
+
 
 // if(locastorage.getItem(loggedIn) && window.location.href.includes("world")) {
 

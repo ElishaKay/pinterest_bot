@@ -10,8 +10,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     
         .state('home', {
             url: '/home',
-            templateUrl: '../views/home.html',
-            controller: 'PopupCtrl'
+            templateUrl: '../views/home.html'
         })
         
         .state('home.insert-code', {
@@ -29,12 +28,13 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 
 
-myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
+myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $http, $state){
    console.log("Controller Initialized");
 
     // we will store all of our form data in this object
     $scope.formData = {};
     $scope.client_analytics_code = '';
+    $scope.selectedObj = {};
 
     $scope.getClientData = function(formData) {
         $scope.client_analytics_code = formData.client_analytics_code;
@@ -44,6 +44,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
                 console.log(response.data);
                 if (response.data){
                     $scope.users = response.data;
+                    logIn();
                 }                 
              }, function errorCallback(response) {
             console.log(`error when logging in: ${response}`)
@@ -55,18 +56,25 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
                 console.log(response.data);
                 if (response.data){
                     $scope.campaigns = response.data;
+                    logIn();
                 } 
             }, function errorCallback(response) {
             console.log(`error when fetching existing campaigns: ${response}`)
         }); 
 
+        let logIn = function(){
+           $state.go('home.run-campaign');
+        }
+        
+
     };
 
-    $scope.startScraping = function(user){
+    $scope.startScraping = function(user, search){
+        console.log('here is the search_term:', search);
         console.log('ran startScraping function with this user', user);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user}, function(response){
-                console.log('this is the response from content page',response)        
+             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: search}, function(response){
+                // console.log('this is the response from content page',response)        
             });
         });    
     }
