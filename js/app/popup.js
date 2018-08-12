@@ -60,6 +60,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
     };
 
     $scope.startScraping = function(user){
+        console.log('ran startScraping function with this user', user);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
              chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user}, function(response){
                 console.log('this is the response from content page',response)        
