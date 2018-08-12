@@ -24,8 +24,13 @@ chrome.runtime.onMessage.addListener(
 
               inputEmail.value = message.creds.user_email;
               inputPassword.value = message.creds.user_password;
+              
+              wait(500);
+
               login.click()
-              sendResponse(text);
+              localstorage.setItem(loggedIn, true);
+              localstorage.setItem(search_term, message.campaign.search_term);
+              // sendResponse(text);
             break;
         }
     }
@@ -33,8 +38,12 @@ chrome.runtime.onMessage.addListener(
 
 
 // if the user is logged in
+if(localstorage.getItem(loggedIn) && window.location.href === "https://www.pinterest.com") {
+  let search_term = localstorage.getItem(search_term);
+  window.location.href = 'https://www.pinterest.com/search/pins/?q='+search_term;
+}
 
-// let loggedIn = 
+
 
 // if(locastorage.getItem(loggedIn) && window.location.href.includes("world")) {
 

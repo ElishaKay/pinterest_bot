@@ -10,8 +10,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     
         .state('home', {
             url: '/home',
-            templateUrl: '../views/home.html',
-            controller: 'PopupCtrl'
+            templateUrl: '../views/home.html'
         })
         
         .state('home.insert-code', {
@@ -29,7 +28,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 
 
-myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
+myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $http, $state){
    console.log("Controller Initialized");
 
     // we will store all of our form data in this object
@@ -60,13 +59,17 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
             console.log(`error when fetching existing campaigns: ${response}`)
         }); 
 
+        if($scope.campaigns || $scope.users){
+           $state.go('home.run-campaign');
+        } 
+
     };
 
-    $scope.startScraping = function(user){
+    $scope.startScraping = function(user, search_term){
         console.log('ran startScraping function with this user', user);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user}, function(response){
-                console.log('this is the response from content page',response)        
+             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: search_term}, function(response){
+                // console.log('this is the response from content page',response)        
             });
         });    
     }
