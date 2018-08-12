@@ -34,6 +34,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     // we will store all of our form data in this object
     $scope.formData = {};
     $scope.client_analytics_code = '';
+    $scope.selectedObj = {};
 
     $scope.getClientData = function(formData) {
         $scope.client_analytics_code = formData.client_analytics_code;
@@ -43,6 +44,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
                 console.log(response.data);
                 if (response.data){
                     $scope.users = response.data;
+                    logIn();
                 }                 
              }, function errorCallback(response) {
             console.log(`error when logging in: ${response}`)
@@ -54,21 +56,24 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
                 console.log(response.data);
                 if (response.data){
                     $scope.campaigns = response.data;
+                    logIn();
                 } 
             }, function errorCallback(response) {
             console.log(`error when fetching existing campaigns: ${response}`)
         }); 
 
-        if($scope.campaigns || $scope.users){
+        let logIn = function(){
            $state.go('home.run-campaign');
-        } 
+        }
+        
 
     };
 
-    $scope.startScraping = function(user, search_term){
+    $scope.startScraping = function(user, search){
+        console.log('here is the search_term:', search);
         console.log('ran startScraping function with this user', user);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: search_term}, function(response){
+             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: search}, function(response){
                 // console.log('this is the response from content page',response)        
             });
         });    
