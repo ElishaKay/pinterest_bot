@@ -79,5 +79,20 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
         });    
     }
 
+    // handling the images and descriptions sent from content.js
+    chrome.runtime.onMessage.addListener(
+        function(message, sender, sendResponse) {
+            switch(message.type) {
+                case "imageData":
+                    console.log('got image Data from content.js: ', message)
+                    break;
+                default:
+                    console.error("Unrecognised message: ", message);
+            }
+        }
+    );
+
   }
 ]);
+
+

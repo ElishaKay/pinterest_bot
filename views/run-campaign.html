@@ -2,25 +2,15 @@
 
   <div ng-if="campaigns" class="form-group">
     <table>
-      <div ng-repeat="campaign in campaigns">
-          <label>
+      <tr ng-repeat="campaign in campaigns">
+        <td>
+          <label> {{$index}}
              <input type="radio" ng-model="$parent.selectedObj" ng-value="campaign">
              {{campaign.search_term}}
           </label>
-      </div>
-
-      <tr ng-repeat="c in campaigns">
-      <!-- $parent.selectedObj -->
-          <td>
-            <label> {{$index}}
-             <input type="radio" ng-model="$parent.selectedObj" ng-value="c">
-        </label>
-      </td>
-    </tr>
+        </td>
+      </tr>  
   </table>
-
-<h1>Results:</h1>
-   <span>Selected object: {{selectedObj.search_term}}</span>
 
   <div ng-if="!campaigns">
         <div class="row">

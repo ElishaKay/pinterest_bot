@@ -25,11 +25,11 @@ chrome.runtime.onMessage.addListener(
 
               inputEmail.value = message.creds.user_email;
               inputPassword.value = message.creds.user_password;
-              
-              wait(500);
 
               localStorage.setItem('loggedIn', true);
               localStorage.setItem('search_term', message.campaign);
+              
+              wait(1000);
 
               login.click()
               
@@ -39,12 +39,26 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-
+let search_term = localStorage.getItem('search_term');
 // if the user is logged in
-if(window.location.href === "https://www.pinterest.com") {
-  let search_term = localStorage.getItem('search_term');
+if (typeof search_term != 'undefined' && search_term){
+  localStorage.removeItem('search_term');
   window.location.href = 'https://www.pinterest.com/search/pins/?q='+search_term;
 }
+
+if (window.location.href.includes('?q=')){
+  let images = document.querySelectorAll('.gridCentered img');
+  let stuffToSave = [];
+  console.log('these are the images:',images);
+  for (i = 0; i < 5; i++) { 
+    let description = images[i].alt;
+    let img_src = images[i].src;
+    stuffToSave.push({description, img_src});    
+  }
+  console.log(stuffToSave);
+  chrome.runtime.sendMessage({type: "imageData", images: stuffToSave});
+}
+
 
 
 
