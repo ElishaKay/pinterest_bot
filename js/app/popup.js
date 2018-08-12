@@ -58,8 +58,8 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
     
     
     // function to process the form
-    $scope.login = function(formData) {
-        $http.post('http://localhost:5000/login', formData)
+    $scope.getCreds = function(formData) {
+        $http.get('http://localhost:5000/getcreds/'+formData.client_analytics_code)
              .then(function (response) {
                    console.log(response.data);
              }, function errorCallback(response) {
