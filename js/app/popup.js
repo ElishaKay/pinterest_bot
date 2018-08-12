@@ -35,11 +35,13 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     $scope.formData = {};
     $scope.client_analytics_code = '';
     $scope.selectedObj = {};
+    //change before deploying
+    $scope.baseUrl = 'http://localhost:5000';
 
     $scope.getClientData = function(formData) {
         $scope.client_analytics_code = formData.client_analytics_code;
         // get creds of client's pinterest users
-        $http.get('http://localhost:5000/getcreds/'+$scope.client_analytics_code)
+        $http.get($scope.baseUrl+'/getcreds/'+$scope.client_analytics_code)
              .then(function (response) {
                 console.log(response.data);
                 if (response.data){
@@ -51,7 +53,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
         }); 
     
         // get client's existing campaign search_terms
-        $http.get('http://localhost:5000/getcampaigns/'+$scope.client_analytics_code)
+        $http.get($scope.baseUrl+'/getcampaigns/'+$scope.client_analytics_code)
              .then(function (response) {
                 console.log(response.data);
                 if (response.data){
@@ -69,22 +71,33 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
 
     };
 
-    $scope.startScraping = function(user, search){
-        console.log('here is the search_term:', search);
+    $scope.startScraping = function(user, campaign){
+        console.log('here is the search_term:', campaign.search_term);
+        console.log('here is the campaign_id:', campaign.campaign_id);
         console.log('ran startScraping function with this user', user);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: search}, function(response){
+             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: {campaign_id: campaign.campaign_id, search: campaign.search_term}}, function(response){
                 // console.log('this is the response from content page',response)        
             });
         });    
     }
 
-    // handling the images and descriptions sent from content.js
+    // handling the images and descriptions sent back from content.js
     chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
                 case "imageData":
                     console.log('got image Data from content.js: ', message)
+                    let imagesArr = message.images;
+                        for (i = 0; i < imagesArr.length; i++) { 
+                            $http.post($scope.baseUrl+'/save-images', imagesArr[i])
+                                .then(function (response) {
+                                    console.log(response.data);
+                                }, function errorCallback(response) {
+                                console.log(`error when saving image, ${response}`)
+                            });       
+                    }
+                    
                     break;
                 default:
                     console.error("Unrecognised message: ", message);
