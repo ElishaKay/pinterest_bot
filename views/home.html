@@ -9,9 +9,7 @@
           <!-- the links to our nested states using relative paths -->
           <!-- add the active class if the state matches our ui-sref -->
           <div id="status-buttons" class="text-center">
-              <a ui-sref-active="active" ui-sref=".profile">Page 1</a>
-              <a ui-sref-active="active" ui-sref=".interests">Page 2</a>
-              <a ui-sref-active="active" ui-sref=".payment">Page 3</a>
+              <a ui-sref-active="active" ui-sref=".campaign">Run Campaigns</a>
           </div>
       </div>
       
@@ -19,11 +17,6 @@
           <div id="form-views" ui-view></div>
       
   </div>
-  
-  <!-- show our formData as it is being typed -->
-  <pre>
-    {{ formData }}
-  </pre>
 
 </div>
 </div>
