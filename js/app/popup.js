@@ -48,31 +48,26 @@ myApp.controller("PopupCtrl", ['$scope', '$http', function($scope, $http){
     // we will store all of our form data in this object
     $scope.formData = {};
 
-    // $http.get('/getTasks')
-    //   .then(function successCallback(response) {
-    //     $scope.tasks = response.data;
-    //   }, function errorCallback(response) {
-    //     console.log(`error ${response}`)
-    // });
-
-    
-    
     // function to process the form
-    $scope.login = function(formData) {
-        $http.post('http://localhost:5000/login', formData)
+    $scope.getCreds = function(formData) {
+        $http.get('http://localhost:5000/getcreds/'+formData.client_analytics_code)
              .then(function (response) {
                    console.log(response.data);
+                   $scope.users = response.data; 
              }, function errorCallback(response) {
             console.log(`error when logging in: ${response}`)
        }); 
     };
 
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds:{name: "Elisha", password: "gym"}}, function(response){
-            console.log('this is the response from content page',response)
-            
-        });
-    });
+    $scope.startScraping = function(user){
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user}, function(response){
+                console.log('this is the response from content page',response)        
+            });
+        });    
+    }
+
+    
 
   }
 ]);
