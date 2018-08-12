@@ -35,11 +35,13 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     $scope.formData = {};
     $scope.client_analytics_code = '';
     $scope.selectedObj = {};
+    //change before deploying
+    $scope.baseUrl = 'http://localhost:5000';
 
     $scope.getClientData = function(formData) {
         $scope.client_analytics_code = formData.client_analytics_code;
         // get creds of client's pinterest users
-        $http.get('http://localhost:5000/getcreds/'+$scope.client_analytics_code)
+        $http.get($scope.baseUrl+'/getcreds/'+$scope.client_analytics_code)
              .then(function (response) {
                 console.log(response.data);
                 if (response.data){
@@ -51,7 +53,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
         }); 
     
         // get client's existing campaign search_terms
-        $http.get('http://localhost:5000/getcampaigns/'+$scope.client_analytics_code)
+        $http.get($scope.baseUrl+'/getcampaigns/'+$scope.client_analytics_code)
              .then(function (response) {
                 console.log(response.data);
                 if (response.data){
@@ -86,6 +88,16 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
             switch(message.type) {
                 case "imageData":
                     console.log('got image Data from content.js: ', message)
+                    let imagesArr = message.images;
+                        for (i = 0; i < imagesArr.length; i++) { 
+                            $http.post($scope.baseUrl+'/save-images', imagesArr[i])
+                                .then(function (response) {
+                                    console.log(response.data);
+                                }, function errorCallback(response) {
+                                console.log(`error when saving image, ${response}`)
+                            });       
+                    }
+                    
                     break;
                 default:
                     console.error("Unrecognised message: ", message);
