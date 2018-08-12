@@ -7,7 +7,9 @@ chrome.runtime.onMessage.addListener(
                 sendResponse(text);
             case "userCreds":
             	console.log('these are the user creds',message.creds);
-              console.log('this is the search_term',message.campaign);
+              console.log('this is the search_term',message.campaign.search);
+              console.log('this is the search_term',message.campaign.campaign_id);
+
               // Logging In
               let inputEmail = document.querySelector('input#email');
               let inputPassword = document.querySelector('#password');
@@ -26,8 +28,10 @@ chrome.runtime.onMessage.addListener(
               inputEmail.value = message.creds.user_email;
               inputPassword.value = message.creds.user_password;
 
-              localStorage.setItem('loggedIn', true);
-              localStorage.setItem('search_term', message.campaign);
+              localStorage.setItem('search_term', message.campaign.search);
+              localStorage.setItem('client_id', message.creds.client_id);
+              localStorage.setItem('campaign_id', message.campaign.campaign_id);
+              
               
               wait(1000);
 
@@ -47,13 +51,15 @@ if (typeof search_term != 'undefined' && search_term){
 }
 
 if (window.location.href.includes('?q=')){
+  let client_id = localStorage.getItem('client_id');
+  let campaign_id = localStorage.getItem('campaign_id');
   let images = document.querySelectorAll('.gridCentered img');
   let stuffToSave = [];
   console.log('these are the images:',images);
   for (i = 0; i < 5; i++) { 
-    let description = images[i].alt;
-    let img_src = images[i].src;
-    stuffToSave.push({description, img_src});    
+    let image_description = images[i].alt;
+    let image_src = images[i].src;
+    stuffToSave.push({client_id, campaign_id, image_description, image_src});    
   }
   console.log(stuffToSave);
   chrome.runtime.sendMessage({type: "imageData", images: stuffToSave});

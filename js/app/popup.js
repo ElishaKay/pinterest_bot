@@ -69,17 +69,18 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
 
     };
 
-    $scope.startScraping = function(user, search){
-        console.log('here is the search_term:', search);
+    $scope.startScraping = function(user, campaign){
+        console.log('here is the search_term:', campaign.search_term);
+        console.log('here is the campaign_id:', campaign.campaign_id);
         console.log('ran startScraping function with this user', user);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: search}, function(response){
+             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: {campaign_id: campaign.campaign_id, search: campaign.search_term}}, function(response){
                 // console.log('this is the response from content page',response)        
             });
         });    
     }
 
-    // handling the images and descriptions sent from content.js
+    // handling the images and descriptions sent back from content.js
     chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
