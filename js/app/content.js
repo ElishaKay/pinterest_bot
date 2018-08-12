@@ -10,3 +10,18 @@ function wordSelected() {
       chrome.runtime.sendMessage(selectedText);
   }
 }
+
+var text = "hello";
+
+chrome.runtime.onMessage.addListener(
+    function(message, sender, sendResponse) {
+        switch(message.type) {
+            case "getText":
+                sendResponse(text);
+            case "userCreds":
+            	console.log('these are the user creds',message.creds);
+                sendResponse(text);
+            break;
+        }
+    }
+);

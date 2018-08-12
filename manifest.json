@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Text Sentiment Analysis",
-  "description": "An extension to quickly analyze sentiment of selected text on any web page.",
+  "name": "Pinterest Bot",
+  "description": "pinterest bot",
   "version": "1.0",
   "content_scripts": [
     {
@@ -17,6 +17,6 @@
   "browser_action": {
     "default_icon": "assets/icons/curriculum_icon.png",
     "default_popup": "popup.html",
-    "default_title": "Text Sentiment Analysis"
+    "default_title": "Pinterest Bot"
   }
 }
