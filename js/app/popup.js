@@ -12,7 +12,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
         .state('form', {
             url: '/form',
             templateUrl: '../views/form.html',
-            controller: 'formController'
+            controller: 'PopupCtrl'
         })
         
         // nested states 
