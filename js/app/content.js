@@ -32,12 +32,8 @@ chrome.runtime.onMessage.addListener(
               localStorage.setItem('client_id', message.creds.client_id);
               localStorage.setItem('campaign_id', message.campaign.campaign_id);
               
-              
               wait(1000);
-
               login.click()
-              
-              // sendResponse(text);
             break;
         }
     }
