@@ -64,24 +64,3 @@ if (window.location.href.includes('?q=')){
   console.log(stuffToSave);
   chrome.runtime.sendMessage({type: "imageData", images: stuffToSave});
 }
-
-
-
-
-// if(locastorage.getItem(loggedIn) && window.location.href.includes("world")) {
-
-// let images = document.querySelectorAll('.gridCentered img');
-
-// }
-
-// window.addEventListener("mouseup", wordSelected);
-
-//sending message up to the popup
-// function wordSelected() {
-//   let selectedText = window.getSelection().toString();
-//   if(selectedText.length > 0) {
-//       console.log("selectedText: " + selectedText);
-//       // Send selected text to background page
-//       chrome.runtime.sendMessage(selectedText);
-//   }
-// }
