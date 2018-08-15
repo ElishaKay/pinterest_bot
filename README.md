@@ -109,13 +109,14 @@ chrome.runtime.onMessage.addListener(
 
 <h1>API Docs</h1>
 
-All of the API Calls are located within the routes.js file of the server:
+All of the API Calls are located within the <a href="https://github.com/ElishaKay/amp-site-2018/blob/master/app/routes.js">routes.js file of the server</a>
 
-As mentioned, the server is currently deployed at: https://ampituptime.herokuapp.com/. Therefore, if you navigate to https://ampituptime.herokuapp.com//getimages/james987@gmail.com420946 then you'll see all of the 
+As mentioned, the server is currently deployed at: https://ampituptime.herokuapp.com/. Therefore, if you navigate to https://ampituptime.herokuapp.com/getimages/james987@gmail.com420946 then you'll see all of the 
 
 <h3>Calls Made only from Admin GUI:</h3>
-// Note: the 'isLoggedIn' function verifies that only logged-in users can make the API Call
 
+```javascript
+// Note: the 'isLoggedIn' function verifies that only logged-in users can make the API Call
 app.post('/signup', passport.authenticate('local-signup', 
 
 app.post('/login', passport.authenticate('local-login',
@@ -127,20 +128,22 @@ app.get('/getimages/:client_analytics_code',
 app.post('/add-pinterest-user', isLoggedIn,
 
 app.post('/create-campaign', isLoggedIn,
-
+```
 
 <h3>Calls made from the Chrome Extension (popup.js or background.js pages):</h3>
 
+```javascript
 app.post('/save-images', 
-
+```
 
 <h3>Calls made from both the Chrome Extension and Admin GUI:</h3>
 
+```javascript
 //Gets the credentials of the Pinterest Users saved by the client
 app.get('/getcreds/:client_analytics_code'
 
 app.get('/getcampaigns/:client_analytics_code', 
-
+```
 
 <h3>Summary</h3>
 
