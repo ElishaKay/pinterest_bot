@@ -1,9 +1,5 @@
 
-# pinterest_bot
-
-This repo contains the Chrome Extension 
-
-<h1>Screenshots</h1>
+# Screenshots
 
 <h3>Step 1: Via the Admin GUI. Add the credentials of your Pinterest User</h3>
 
