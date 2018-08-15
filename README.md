@@ -36,9 +36,7 @@
 
 <br>
 
-<h1>Project Structure and Helpful Links for Development</h1>
-
-Happy to present the pinterest scraping bot.
+<h1>Getting Started</h1>
 
 You can view the admin gui here:
 
@@ -55,22 +53,20 @@ The server code is available here: https://github.com/ElishaKay/amp-site-2018
 
 The actual scraping is being done by a Chrome Extension. Once a client creates an account via the Admin UI, he is provided with a 'scraping_code'. The client will then need to download the Chrome Extension, input the scraping_code, and choose a Pinterest User, and saved Search Term that he defined within the admin UI.
 
-The Extension code is available here: https://github.com/ElishaKay/pinterest_bot
-
 I've pointed the extensions API Calls to the live heroku server mentioned above - you can also easily point the API calls to localhost:5000 for testing purposes (just one variable to change).
 
 
-<h1>A couple more notes about the Architecture and Technologies used:</h1>
+<h1>Technologies Used</h1>
 
-NodeJS Server
-MySQL Database
-AngularJS - on both the Admin GUI and Chrome Popup (and the UI-Router library that allows for changing views)
+- NodeJS Server
+- MySQL Database
+- AngularJS - on both the Admin GUI and Chrome Popup (and the UI-Router library that allows for changing views)
 
 Both the Extension and Admin GUI are interacting with the same server and database.
 
 How the extension works:
 
-The 2 important pages of the chrome extension are the popup.js and content.js pages.
+The 2 important pages of the chrome extension are the >a href="https://github.com/ElishaKay/pinterest_bot/tree/master/js/app">popup.js and content.js pages.</a>
 
 The big challenge of scraping data from Pinterest is the 'Content Security Policy' of Pinterest - this prevented me from making POST requests directly from the Pinterest DOM. Instead, I had to put all the interaction with the server within the popup.js page.  In short, the 'popup.js' and 'content.js' pages have different strengths: The 'content.js' page has direct access to the Pinterest DOM, but the 'popup.js' page needs to handle all communication with the server. That means that these 2 pages need to play together nicely.
 
