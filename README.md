@@ -1,7 +1,4 @@
-
-# Screenshots
-
-<h3>Step 1: Via the Admin GUI. Add the credentials of your Pinterest User</h3>
+<h5>Step 1: Via the Admin GUI. Add the credentials of your Pinterest User</h5>
 
 <img src="img/admin-gui-add-users.png">
 
