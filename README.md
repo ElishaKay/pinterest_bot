@@ -66,7 +66,7 @@ Both the Extension and Admin GUI are interacting with the same server and databa
 
 How the extension works:
 
-The 2 important pages of the chrome extension are the >a href="https://github.com/ElishaKay/pinterest_bot/tree/master/js/app">popup.js and content.js pages.</a>
+The 2 important pages of the chrome extension are the <a href="https://github.com/ElishaKay/pinterest_bot/tree/master/js/app">popup.js and content.js pages.</a>
 
 The big challenge of scraping data from Pinterest is the 'Content Security Policy' of Pinterest - this prevented me from making POST requests directly from the Pinterest DOM. Instead, I had to put all the interaction with the server within the popup.js page.  In short, the 'popup.js' and 'content.js' pages have different strengths: The 'content.js' page has direct access to the Pinterest DOM, but the 'popup.js' page needs to handle all communication with the server. That means that these 2 pages need to play together nicely.
 
