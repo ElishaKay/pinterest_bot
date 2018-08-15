@@ -107,7 +107,7 @@ chrome.runtime.onMessage.addListener(
 
 All of the API Calls are located within the <a href="https://github.com/ElishaKay/amp-site-2018/blob/master/app/routes.js">routes.js file of the server</a>
 
-As mentioned, the server is currently deployed at: https://ampituptime.herokuapp.com/. Therefore, if you navigate to https://ampituptime.herokuapp.com/getimages/james987@gmail.com420946 then you'll see all of the 
+As mentioned, the server is currently deployed at: https://ampituptime.herokuapp.com/. Therefore, if you navigate to https://ampituptime.herokuapp.com/getimages/james987@gmail.com420946 then you'll see all of the saved images of a given client - (in this case, james987@gmail.com). To add more security, you can make the client code more complex.
 
 <h3>Calls Made only from Admin GUI:</h3>
 
