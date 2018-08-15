@@ -64,4 +64,4 @@ The actual scraping is being done by a Chrome Extension. Once a client creates a
 
 The Extension code is available here: https://github.com/ElishaKay/pinterest_bot
 
-I've pointing the extensions API Calls to the live heroku server mentioned above - you can also easily point the API called to localhost:5000 for testing purposes (just one variable to change).
+I've pointed the extensions API Calls to the live heroku server mentioned above - you can also easily point the API calls to localhost:5000 for testing purposes (just one variable to change).
