@@ -1,3 +1,5 @@
+Create a Campaign Search via the Admin GUI and fetch images from Pinterest!
+
 <h5>Step 1: Via the Admin GUI. Add the credentials of your Pinterest User</h5>
 
 <img src="img/admin-gui-add-users.png">
