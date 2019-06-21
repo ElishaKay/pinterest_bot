@@ -76,7 +76,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
         console.log('here is the campaign_id:', campaign.campaign_id);
         console.log('ran startScraping function with this user', user);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-             chrome.tabs.sendMessage(tabs[0].id, {type:"userCreds", creds: user, campaign: {campaign_id: campaign.campaign_id, search: campaign.search_term}}, function(response){
+             chrome.tabs.sendMessage(tabs[0].id, {type:"scrapeTime", creds: user, campaign: {campaign_id: campaign.campaign_id, search: campaign.search_term}}, function(response){
                 // console.log('this is the response from content page',response)        
             });
         });    
@@ -86,17 +86,8 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
-                case "imageData":
-                    console.log('got image Data from content.js: ', message)
-                    let imagesArr = message.images;
-                        for (i = 0; i < imagesArr.length; i++) { 
-                            $http.post($scope.baseUrl+'/save-images', imagesArr[i])
-                                .then(function (response) {
-                                    console.log(response.data);
-                                }, function errorCallback(response) {
-                                console.log(`error when saving image, ${response}`)
-                            });       
-                    }
+                case "fell in love":
+                    console.log('cool');
                     
                     break;
                 default:

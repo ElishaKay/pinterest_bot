@@ -105,6 +105,27 @@ chrome.runtime.onMessage.addListener(
 ```
 
 
+Because the chrome.runtime.onMessage API goes out to the content.js, background.js, and popup.js pages, Chrome Extension developers frequently use the JavaScript switch statement when listening for these events.
+
+You can use the following template in any of your main extension pages:
+
+```
+chrome.runtime.onMessage.addListener(
+        function(message, sender, sendResponse) {
+            switch(message.type) {
+            	case x:
+				    // code block
+				    break;
+				case y:
+				    // code block
+				    break;
+				default:
+				    // code block
+            }
+        }
+);
+```
+
 <h1>API Docs</h1>
 
 All of the API Calls are located within the <a href="https://github.com/ElishaKay/amp-site-2018/blob/master/app/routes.js">routes.js file of the server</a>
